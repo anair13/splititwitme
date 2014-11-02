@@ -3,6 +3,7 @@ require 'json'
 
 def json_to_transaction_params(json)
     return JSON.parse(json)
+end
 
 def make_transactions(access_token, payees, charges)
     # Performs transactions
@@ -23,22 +24,14 @@ def make_transactions(access_token, payees, charges)
     end
 end
 
-def get_user_authorization(redirect_uri)
-    # Redirects user to Venmo authorization page
-    # Returns the user back to redirect_uri when finished
-    client_id = "2071"
-    scopes = "make_payments"
-    response_type = "code"
-    redirect_to "https://api.venmo.com/v1/oauth/authorize?client_id=" + client_id + "&scope=" + scopes + "&response_type=" + response_type + "&redirect_uri=" + redirect_uri
-end
-
-def get_access_token(client_id, code, client_secret)
+def get_access_token_and_user_id(client_id, code, client_secret)
     # Takes a client_id, code (from get_user_authorization) and client_secret
-    # and returns an access token that can be used with venmo API calls
+    # and returns an [access_token, user_id] pair that can be used with venmo API calls
     uri = URI("https://api.venmo.com/v1/oauth/access_token")
     res = Net::HTTP.post_form(uri,
         'client_id'     => client_id,
         'code'          => code,
         'client_secret' => client_secret
     )
+    return [res["access_token"]] + [res["username"]]
 end
