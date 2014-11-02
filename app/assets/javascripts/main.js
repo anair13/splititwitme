@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp',[]);
 
-myApp.config(['$routeProvider', function($routeProvider) {
+myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider.
   	when('/', {
   		templateUrl: '../templates/application.html',
@@ -10,4 +10,7 @@ myApp.config(['$routeProvider', function($routeProvider) {
    //    templateUrl: '../templates/home.html',
    //    controller: 'HomeCtrl'
    //  })
+   
+   $locationProvider.html5Mode(true);
+
 }])
