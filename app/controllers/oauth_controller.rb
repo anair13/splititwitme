@@ -1,3 +1,9 @@
+require 'rubygems'
+require 'json'
+
+def json_to_transaction_params(json)
+    return JSON.parse(json)
+
 def make_transactions(access_token, payees, charges)
     # Performs transactions
 
