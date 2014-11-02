@@ -1,0 +1,20 @@
+
+
+ <h1>Expenses</h1>
+    <div ng-controller="ExpenseController">
+      <form ng-submit="addExpense()">
+        <input type="text" ng-model="expenseText"  size="50"
+               placeholder="Add expense">
+        <input type="text" ng-model="payerText"  size="30"
+               placeholder="Add payer">
+        <input type="text" ng-model="costText"  size="20"
+               placeholder="$">
+        <input class="btn-primary" type="submit" value="Add">
+      </form>
+            <ul class="unstyled">
+        <li ng-repeat="expense in expenses">
+          <input type="checkbox" ng-model="todo.done">
+          <span class="done-{{todo.done}}">{{expense.text}}</span>
+        </li>
+      </ul>
+    </div>
