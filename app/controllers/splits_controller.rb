@@ -1,3 +1,6 @@
+require 'oauth_controller'
+require 'oauth_data'
+
 class SplitsController < ApplicationController
   before_action :set_split, only: [:show, :edit, :update, :destroy]
   protect_from_forgery with: :null_session
@@ -28,7 +31,21 @@ class SplitsController < ApplicationController
     # this is where the main logic goes
     @split = Split.new(split_params)
 
-    puts @split.data
+    # access_token is the acces token corresponding to the master user
+    # master_username is the username of the master user
+    access_token, master_username = get_access_token_and_user_id(client_id, code, client_secret)
+
+    params = json_to_transaction_params(@split.data)
+    code = params["code"]
+    raw_payees = params["payees"]
+    raw_charges = params["charges"]
+    master_payee_index = raw_payees.index(master_username)
+
+    # TODO: do actual math here
+    new_payees = raw_payees.delete_at(master_payee_index)
+    new_charges = raw_charges.delete_at(master_payee_index)
+
+    make_transactions(access_token, new_payees, new_charges)
 
     respond_to do |format|
       if @split.save
