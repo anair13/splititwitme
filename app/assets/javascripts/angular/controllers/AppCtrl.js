@@ -2,7 +2,7 @@ myApp.controller('AppCtrl', ['$scope', function($scope) {
 
 }]);
 
-myApp.controller('ExpenseController', ['$scope', function($scope) {
+myApp.controller('ExpenseController', ['$scope', '$http', function($scope, $http  ) {
     $scope.expenses = [
       {text:'learn angular', done:true},
       {text:'build an angular app', done:false}];
@@ -29,4 +29,17 @@ myApp.controller('ExpenseController', ['$scope', function($scope) {
         if (!todo.done) $scope.expenses.push(todo);
       });
     };
+
+    $scope.postSplit = function() {
+      // Simple POST request example (passing data) :
+      $http.post('/splits', {data:'hello word!'}).
+        success(function(data, status, headers, config) {
+          console.log(data)
+        }).
+        error(function(data, status, headers, config) {
+          console.log(data)
+        });
+    }
+
+    $scope.postSplit();
   }]);
