@@ -1,9 +1,9 @@
 myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-    // if (!$routeParams.code) {
-    //   window.location.replace(
-    //     "https://api.venmo.com/v1/oauth/authorize?client_id=2071&scope=make_payments&response_type=code"
-    //   );
-    // }
+    if (!$routeParams.code) {
+      window.location.replace(
+        "https://api.venmo.com/v1/oauth/authorize?client_id=2071&scope=make_payments&response_type=code"
+      );
+    }
 
     console.log($routeParams.code)
 
@@ -14,14 +14,14 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
 
     $scope.addExpense = function() {
       $scope.expenses.push(
-        {expense:$scope.expenseText, payer:$scope.payerText, cost:$scope.costText, done:false}
+        {expense:$scope.expenseText, payer:$scope.payerText, cost:parseFloat($scope.costText), done:false}
       );
-      $scope.total += $scope.costText;
+      $scope.total += parseFloat($scope.costText);
       if (!($scope.payers[$scope.payerText])) {
-        $scope.payers[$scope.payerText] = $scope.costText;
+        $scope.payers[$scope.payerText] = parseFloat($scope.costText);
         $scope.n += 1;
       } else {
-        $scope.payers[$scope.payerText] = $scope.payers[$scope.payerText] + $scope.costText;
+        $scope.payers[$scope.payerText] = $scope.payers[$scope.payerText] + parseFloat($scope.costText);
       }
       $scope.expenseText = '';
       $scope.payerText  = '';
