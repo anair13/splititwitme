@@ -24,7 +24,6 @@
         <td><form submit="deleteExpense()"><button class="btn btn-error" type="submit"><span class="glyphicon glyphicon-remove"></span></button></form></td>
       </span>
     </tr>
-    <form class="form-inline" ng-submit="addExpense()">
     <tr>
     <td><input class="form-control" type="text" ng-model="expenseText"  size="55"
            placeholder="Add expense"></td>
@@ -32,9 +31,8 @@
            placeholder="Add payer"></td>
     <td><input class="form-control" type="number" ng-model="costText"  size="20"
            placeholder="$"></td>
-    <td><input class="btn btn-primary" type="submit" value="Add"></td>
+    <td><button class="btn btn-danger btn-lg" ng-click="addExpense()">Add</button></td>
     </tr>
-  </form>
     </tbody>
 </table>
 </div>
@@ -52,10 +50,9 @@
       <td>{{user}} ${{getTotal(user)}}</td>
   </tr>
   <tr>
-  <form ng-submit="addSharer()">
     <td><input type="text" ng-model="nameText"  size="30"
-         placeholder="Name"><input class="btn btn-primary" type="submit" value="Add"></td>
-  </form>
+         placeholder="Name">
+        <button class="btn btn-danger btn-lg" ng-click="addSharer()">Add</button></td>
 </tr>
   </tbody>
   </table>
