@@ -1,9 +1,9 @@
 myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-    if (!$routeParams.code) {
-      window.location.replace(
-        "https://api.venmo.com/v1/oauth/authorize?client_id=2071&scope=make_payments&response_type=code"
-      );
-    }
+    // if (!$routeParams.code) {
+    //   window.location.replace(
+    //     "https://api.venmo.com/v1/oauth/authorize?client_id=2071&scope=make_payments&response_type=code"
+    //   );
+    // }
 
     console.log($routeParams.code)
 
