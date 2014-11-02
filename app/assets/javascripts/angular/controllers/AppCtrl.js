@@ -32,7 +32,8 @@ myApp.controller('ExpenseController', ['$scope', '$http', function($scope, $http
 
     $scope.postSplit = function() {
       // Simple POST request example (passing data) :
-      $http.post('/splits', {data:'hello word!'}).
+      // data passed in should be a serialized json object
+      $http.post('/splits.json', {data:'hello word!'}).
         success(function(data, status, headers, config) {
           console.log(data)
         }).
