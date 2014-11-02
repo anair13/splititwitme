@@ -2,12 +2,12 @@ var myApp = angular.module('myApp',[]);
 
 myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-  	when('/application', {
+  	when('/', {
   		templateUrl: '../templates/application.html',
-  		controller: 'AppCtrl'
-  	}).
-  	otherwise({
-      templateUrl: '../templates/home.html',
-      controller: 'HomeCtrl'
-    })
+  		controller: 'ExpenseController'
+  	})
+  	// otherwise({
+   //    templateUrl: '../templates/home.html',
+   //    controller: 'HomeCtrl'
+   //  })
 }])
