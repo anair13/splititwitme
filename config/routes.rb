@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :splits
+
   root 'static_pages#index'
   get '*path', to: 'static_pages#index'
 
