@@ -1,28 +1,35 @@
-
-
  <h1>Expenses</h1>
-    <div ng-controller="ExpenseController">
-      <form ng-submit="addExpense()">
-        <input type="text" ng-model="expenseText"  size="50"
-               placeholder="Add expense">
-        <input type="text" ng-model="payerText"  size="30"
-               placeholder="Add payer">
-        <input type="number" ng-model="costText"  size="20"
-               placeholder="$">
-        <input class="btn-primary" type="submit" value="Add">
-      </form>
-            <ul class="unstyled">
-        <li ng-repeat="expense in expenses">
-          <input type="checkbox" ng-model="todo.done">
-          <span class="done-{{todo.done}}">{{expense.expense}}{{expense.payer}}{{expense.cost}}\</form></span>
-        </li>
-        <form ng-submit="addSharer()">
-                <input type="text" ng-model="nameText"  size="30"
-               placeholder="Name">
-        <input class="btn-primary" type="submit" value="Add">
-      </form>
-        <li ng-repeat="user in getKeys()">
-          <p>{{user}}{{getTotal(user)}}
-        </li>
-      </ul>
-    </div>
+<div ng-controller="ExpenseController">
+  <form ng-submit="addExpense()">
+    <input type="text" ng-model="expenseText"  size="50"
+           placeholder="Add expense">
+    <input type="text" ng-model="payerText"  size="30"
+           placeholder="Add payer">
+    <input type="number" ng-model="costText"  size="20"
+           placeholder="$">
+    <input class="btn-primary" type="submit" value="Add">
+  </form>
+
+  <ul class="unstyled">
+    <li ng-repeat="expense in expenses">
+      <span class="done-{{todo.done}}">${{expense.expense}} {{expense.payer}} {{expense.cost}}</form></span>
+    </li>
+  </ul>
+
+  <form ng-submit="addSharer  ()">
+    <input type="text" ng-model="nameText"  size="30"
+         placeholder="Name">
+    <input class="btn-primary" type="submit" value="Add">
+  </form>
+  <ul>
+    <li ng-repeat="user in getKeys()">
+      <p>{{user}} ${{getTotal(user)}}
+    </li>
+  </ul>
+
+  <br />
+  ${{total}}
+  <br />
+
+  <button ng-click="postSplit()">Split!</button>
+</div>
