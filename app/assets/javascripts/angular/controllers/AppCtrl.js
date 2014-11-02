@@ -2,37 +2,42 @@ myApp.controller('AppCtrl', ['$scope', function($scope) {
 
 }]);
 
-myApp.controller('ExpenseController', ['$scope', '$http', function($scope, $http  ) {
-    $scope.expenses = [
-      {text:'learn angular', done:true},
-      {text:'build an angular app', done:false}];
+myApp.controller('ExpenseController', ['$scope', function($scope) {
+    $scope.expenses = [];
+    payers = {};
+
  
     $scope.addExpense = function() {
-      $scope.expenses.push({text:$scope.expenseText, text:$scope.payerText, text:$scope.costText, done:false});
+      $scope.expenses.push({expense:$scope.expenseText, payer:$scope.payerText, cost:$scope.costText, done:false});
+      if (!(payers[$scope.payerText])) {
+        payers[$scope.payerText] = $scope.costText;
+      } else {
+        payers[$scope.payerText] = payers[$scope.payerText] + $scope.costText;
+      }
       $scope.expenseText = '';
       $scope.payerText  = '';
       $scope.costText = '';
     };
- 
-    $scope.remaining = function() {
-      var count = 0;
-      angular.forEach($scope.expenses, function(todo) {
-        count += todo.done ? 0 : 1;
-      });
-      return count;
+
+    $scope.addSharer = function() {
+      if (!(payers[$scope.nameText])) {
+        payers[$scope.nameText] = 0;
+      $scope.sharerText = '';
     };
- 
-    $scope.archive = function() {
-      var oldTodos = $scope.expenses;
-      $scope.expenses = [];
-      angular.forEach(oldTodos, function(todo) {
-        if (!todo.done) $scope.expenses.push(todo);
-      });
+
+    $scope.getKeys = function() {
+      return Object.keys(payers);
+    };
+
+
+    $scope.getTotal = function(name) {
+      return payers[name];
     };
 
     $scope.postSplit = function() {
       // Simple POST request example (passing data) :
-      $http.post('/splits', {data:'hello word!'}).
+      // data passed in should be a serialized json object
+      $http.post('/splits.json', {data:'hello word!'}).
         success(function(data, status, headers, config) {
           console.log(data)
         }).
@@ -42,4 +47,5 @@ myApp.controller('ExpenseController', ['$scope', '$http', function($scope, $http
     }
 
     $scope.postSplit();
+
   }]);
