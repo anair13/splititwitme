@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :splits
 
   root 'static_pages#index'
-  get '*path', to: 'static_pages#index'
+  get ':action' => 'static_pages#:action'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
