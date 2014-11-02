@@ -1,5 +1,6 @@
 class SplitsController < ApplicationController
   before_action :set_split, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery with: :null_session
 
   # GET /splits
   # GET /splits.json
@@ -26,6 +27,8 @@ class SplitsController < ApplicationController
   def create
     # this is where the main logic goes
     @split = Split.new(split_params)
+
+    puts @split.data
 
     respond_to do |format|
       if @split.save
