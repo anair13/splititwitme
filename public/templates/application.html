@@ -1,11 +1,12 @@
 
-                <div align="center" style="margin-bottom: -100px">
+                <div align="center" style="margin-bottom: 10px">
                     <h1>Expenses</h1>
                 </div>
 
 <div class="form-group-sm" ng-controller="ExpenseController">
-  <table class="table" border="100px" bordercolor="FFFFFF">
-  <br>
+<div align="center">
+  <table class="table" border="1px" bordercolor="FFFFFF" style="width: 800px">
+    <br>
   
     <thead>
       <tr class="success">
@@ -21,7 +22,7 @@
         <td>{{expense.expense}}</td>
         <td>{{expense.payer}}</td>
         <td>${{expense.cost}}</td>
-        <td><form submit="deleteExpense()"><button class="btn btn-error" type="submit"><span class="glyphicon glyphicon-remove"></span></button></form></td>
+        <td><button class="btn btn-error" type="submit">X</button></td>
       </span>
     </tr>
     <tr>
@@ -31,15 +32,12 @@
            placeholder="Add payer"></td>
     <td><input class="form-control" type="number" ng-model="costText"  size="20"
            placeholder="$"></td>
-    <td><button class="btn btn-danger btn-lg" ng-click="addExpense()">Add</button></td>
+    <td><button class="btn btn-primary" ng-click="addExpense()">Add</button></td>
     </tr>
     </tbody>
 </table>
-</div>
-</div>
 
-<div align="center">
-<table class="table" border="500px" bordercolor="FFFFFF">
+<table class="table" border="1px" bordercolor="FFFFFF" style="width: 800px">
   <thead>
     <tr class="success">
       <td>Names of Sharers</td>
@@ -52,18 +50,12 @@
   <tr>
     <td><input type="text" ng-model="nameText"  size="30"
          placeholder="Name">
-        <button class="btn btn-danger btn-lg" ng-click="addSharer()">Add</button></td>
+        <button class="btn btn-prumary" ng-click="addSharer()">Add</button></td>
 </tr>
   </tbody>
   </table>
 </div>
 
 <div align="center">
-  <br />
-  ${{total}}
-  <br />
-
-
-
-  <button class="btn btn-danger btn-lg" ng-click="postSplit()">Split!</button>
+  <button class="btn btn-danger btn-lg" ng-click="postSplit()" align="center" style="margine: 10px">Split!</button>
 </div>

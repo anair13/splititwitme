@@ -7,9 +7,13 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
 
     console.log($routeParams.code)
 
+    expenses = [];
     $scope.expenses = [];
+    total = 0.0;
     $scope.total = 0.0;
+    payers = {};
     $scope.payers = {};
+    n = 0;
     $scope.n = 0;
 
     $scope.addExpense = function() {
@@ -17,50 +21,58 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
       $scope.expenses.push(
         {expense:$scope.expenseText, payer:$scope.payerText, cost:parseFloat($scope.costText), done:false}
       );
+      expenses.push(
+        {expense:$scope.expenseText, payer:$scope.payerText, cost:parseFloat($scope.costText), done:false}
+      );
       $scope.total += parseFloat($scope.costText);
-      if (!($scope.payers[$scope.payerText])) {
+      total += parseFloat($scope.costText);
+      if (!(payers[$scope.payerText])) {
         $scope.payers[$scope.payerText] = parseFloat($scope.costText);
         $scope.n += 1;
+        payers[$scope.payerText] = parseFloat($scope.costText);
+        n += 1;
       } else {
         $scope.payers[$scope.payerText] = $scope.payers[$scope.payerText] + parseFloat($scope.costText);
+        payers[$scope.payerText] = payers[$scope.payerText] + parseFloat($scope.costText);
       }
       $scope.expenseText = '';
       $scope.payerText  = '';
       $scope.costText = '';
+      console.log(expenses);
+      console.log(Object.keys(payers));
     };
 
-    $scope.deleteExpense = function() {
-
-    }
 
     $scope.addSharer = function() {
       if ($scope.nameText) {
-        if (!($scope.payers[$scope.nameText])) {
+        if (!(payers[$scope.nameText])) {
           $scope.payers[$scope.nameText] = 0;
+          payers[$scope.nameText] = 0;
           $scope.n += 1;
+          n += 1;
         }
       }
     };
 
     $scope.getKeys = function() {
-      return Object.keys($scope.payers);
+      return Object.keys(payers);
     };
 
     $scope.getTotal = function(name) {
-      return $scope.payers[name];
+      return payers[name];
     };
 
     $scope.postSplit = function() {
-      var due = $scope.total / $scope.n;
+      var due = total / n;
       console.log($scope.payers);
 
       var payers = [];
       var balances = [];
 
-      for (var name in $scope.payers) {
-        if ($scope.payers.hasOwnProperty(name)) {
+      for (var name in payers) {
+        if (payers.hasOwnProperty(name)) {
           payers.push(name);
-          balances.push($scope.payers[name] - due);
+          balances.push(payers[name] - due);
         }
       }
 
