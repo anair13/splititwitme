@@ -13,6 +13,7 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
     $scope.n = 0;
 
     $scope.addExpense = function() {
+      console.log("hi~:")
       $scope.expenses.push(
         {expense:$scope.expenseText, payer:$scope.payerText, cost:$scope.costText, done:false}
       );
@@ -27,6 +28,10 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
       $scope.payerText  = '';
       $scope.costText = '';
     };
+
+    $scope.deleteExpense = function() {
+
+    }
 
     $scope.addSharer = function() {
       if ($scope.nameText) {

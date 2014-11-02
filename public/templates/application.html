@@ -1,35 +1,72 @@
- <h1>Expenses</h1>
-<div ng-controller="ExpenseController">
-  <form ng-submit="addExpense()">
-    <input type="text" ng-model="expenseText"  size="50"
-           placeholder="Add expense">
-    <input type="text" ng-model="payerText"  size="30"
-           placeholder="Add payer">
-    <input type="number" ng-model="costText"  size="20"
-           placeholder="$">
-    <input class="btn-primary" type="submit" value="Add">
+                <div align="center" style="margin-bottom: -100px">
+                    <h1>Expenses</h1>
+                </div>
+
+
+<div class="form-group-sm" ng-controller="ExpenseController">
+  <table class="table" border="100px" bordercolor="FFFFFF">
+  <br>
+  
+    <thead>
+      <tr class="success">
+      <th>Expenses</th>
+      <th>Payer</th>
+      <th>Amount</th>
+      <th></th> 
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="expense in expenses">
+      <span class="done-{{todo.done}}">
+        <td>{{expense.expense}}</td>
+        <td>{{expense.payer}}</td>
+        <td>${{expense.cost}}</td>
+        <td><form submit="deleteExpense()"><button class="btn btn-error" type="submit"><span class="glyphicon glyphicon-remove"></span></button></form></td>
+      </span>
+    </tr>
+    <form class="form-inline" ng-submit="addExpense()">
+    <tr>
+    <td><input class="form-control" type="text" ng-model="expenseText"  size="55"
+           placeholder="Add expense"></td>
+    <td><input class="form-control" type="text" ng-model="payerText"  size="40"
+           placeholder="Add payer"></td>
+    <td><input class="form-control" type="number" ng-model="costText"  size="20"
+           placeholder="$"></td>
+    <td><input class="btn btn-primary" type="submit" value="Add"></td>
+    </tr>
   </form>
+    </tbody>
+</table>
+</div>
+</div>
 
-  <ul class="unstyled">
-    <li ng-repeat="expense in expenses">
-      <span class="done-{{todo.done}}">{{expense.expense}} {{expense.payer}} ${{expense.cost}}</form></span>
-    </li>
-  </ul>
-
-  <form ng-submit="addSharer  ()">
-    <input type="text" ng-model="nameText"  size="30"
-         placeholder="Name">
-    <input class="btn-primary" type="submit" value="Add">
+<div align="center">
+<table class="table" border="500px" bordercolor="FFFFFF">
+  <thead>
+    <tr class="success">
+      <td>Names of Sharers</td>
+      <tr>
+      </thead>
+  <tbody>
+    <tr ng-repeat="user in getKeys()">
+      <td>{{user}} ${{getTotal(user)}}</td>
+  </tr>
+  <tr>
+  <form ng-submit="addSharer()">
+    <td><input type="text" ng-model="nameText"  size="30"
+         placeholder="Name"><input class="btn btn-primary" type="submit" value="Add"></td>
   </form>
-  <ul>
-    <li ng-repeat="user in getKeys()">
-      <p>{{user}} ${{getTotal(user)}}
-    </li>
-  </ul>
+</tr>
+  </tbody>
+  </table>
+</div>
 
+<div align="center">
   <br />
   ${{total}}
   <br />
 
-  <button ng-click="postSplit()">Split!</button>
+
+
+  <button class="btn btn-danger btn-lg" ng-click="postSplit()">Split!</button>
 </div>
