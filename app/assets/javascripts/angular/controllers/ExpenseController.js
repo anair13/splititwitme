@@ -5,6 +5,8 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
       );
     }
 
+    console.log($routeParams.code)
+
     $scope.expenses = [];
     $scope.total = 0.0;
     $scope.payers = {};
@@ -57,13 +59,13 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
         }
       }
 
-      var dataObj = {payees:payers, charges:balances, code:$scope.code}
+      var dataObj = {payees:payers, charges:balances, code:$routeParams.code}
       console.log(dataObj)
 
       // Simple POST request example (passing data) :
       // data passed in should be a serialized json object
       console.log("submit!");
-      $http.post('/splits.json', {data:dataObj.stringify()}).
+      $http.post('/splits.json', {data:JSON.stringify(dataObj)}).
         success(function(data, status, headers, config) {
           console.log(data)
         }).
