@@ -31,3 +31,14 @@ def get_user_authorization(redirect_uri)
     response_type = "code"
     redirect_to "https://api.venmo.com/v1/oauth/authorize?client_id=" + client_id + "&scope=" + scopes + "&response_type=" + response_type + "&redirect_uri=" + redirect_uri
 end
+
+def get_access_token(client_id, code, client_secret)
+    # Takes a client_id, code (from get_user_authorization) and client_secret
+    # and returns an access token that can be used with venmo API calls
+    uri = URI("https://api.venmo.com/v1/oauth/access_token")
+    res = Net::HTTP.post_form(uri,
+        'client_id'     => client_id,
+        'code'          => code,
+        'client_secret' => client_secret
+    )
+end
