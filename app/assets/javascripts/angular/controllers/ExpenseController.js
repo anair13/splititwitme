@@ -1,9 +1,9 @@
 myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-    // if (!$routeParams.code) {
-    //   window.location.replace(
-    //     "https://api.venmo.com/v1/oauth/authorize?client_id=2071&scope=make_payments&response_type=code&redirect_uri=http://splitwit.me/app"
-    //   );
-    // }
+    if (!$routeParams.code) {
+       window.location.replace(
+         "https://api.venmo.com/v1/oauth/authorize?client_id=2071&scope=make_payments&response_type=code&redirect_uri=http://splitwit.me/app"
+       );
+    }
 
     console.log($routeParams.code)
 
@@ -66,17 +66,17 @@ myApp.controller('ExpenseController', ['$scope', '$http', '$routeParams', functi
       var due = total / n;
       console.log($scope.payers);
 
-      var payers = [];
+      var payees = [];
       var balances = [];
 
       for (var name in payers) {
         if (payers.hasOwnProperty(name)) {
-          payers.push(name);
+          payees.push(name);
           balances.push(payers[name] - due);
         }
       }
 
-      var dataObj = {payees:payers, charges:balances, code:$routeParams.code}
+      var dataObj = {payees:payees, charges:balances, code:$routeParams.code}
       console.log(dataObj)
 
       // Simple POST request example (passing data) :
